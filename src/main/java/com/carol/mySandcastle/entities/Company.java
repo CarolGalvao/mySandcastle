@@ -29,7 +29,6 @@ public class Company implements Serializable {
     private Date creationDate;
     @Column(name="update_date", nullable = false)
     private Date updateDate;
-    // ****************
     @OneToMany (mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private transient List<Employee> employees;
 
@@ -44,11 +43,11 @@ public class Company implements Serializable {
                 ", updateDate=" + updateDate +
                 '}';
     }
-//*********************
-//        @PreUpdate
-//    public void preUpdate(){
-//        updateDate = new Data();
-//    }
+
+    @PreUpdate
+    public void preUpdate(){
+        updateDate = new Date();
+    }
 
     @PrePersist
     public void prePersist(){
