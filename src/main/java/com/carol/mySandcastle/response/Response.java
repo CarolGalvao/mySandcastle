@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @RequiredArgsConstructor
-@Getter @Setter @NoArgsConstructor
+@Getter @Setter
 public class Response<T> {
 
     private T data;

@@ -2,7 +2,7 @@ package com.carol.mySandcastle;
 
 import com.carol.mySandcastle.entities.Company;
 import com.carol.mySandcastle.repositories.CompanyRepository;
-import com.carol.mySandcastle.utils.SenhaUtils;
+//import com.carol.mySandcastle.utils.SenhaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
