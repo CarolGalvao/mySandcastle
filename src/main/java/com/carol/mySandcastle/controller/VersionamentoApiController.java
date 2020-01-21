@@ -1,6 +1,5 @@
 package com.carol.mySandcastle.controller;
 
-import com.carol.mySandcastle.response.Response;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
