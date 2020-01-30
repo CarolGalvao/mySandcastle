@@ -17,7 +17,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.swing.text.html.Option;
 import javax.validation.Valid;
 import java.util.Optional;
 
@@ -66,5 +65,20 @@ public class AuthenticationController {
         if(token.isPresent() && token.get().startsWith(BEARER_PREFIX)){
             token = Optional.of(token.get().substring(7));
         }
+
+        if(!token.isPresent()){
+            response.getErrors().add("Token não informado.");
+        }else if (!jwtTokenUtil.tokenValid(token.get())){
+            response.getErrors().add("Token inválido ou expirado.");
+        }
+
+        if(!response.getErrors().isEmpty()){
+            return ResponseEntity.badRequest().body(response);
+        }
+
+        String refreshedToken = jwtTokenUtil.refreshToken(token.get());
+        response.setData(new TokenDto(refreshedToken));
+
+        return ResponseEntity.ok(response);
     }
 }
