@@ -2,6 +2,7 @@ package com.carol.mySandcastle.security.filters;
 
 import com.carol.mySandcastle.security.utils.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,6 +21,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     private static final String AUTH_HEADER = "Authorization";
     private static final  String BEARER_PREFIX = "Bearer";
 
+    @Qualifier("jwtUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
@@ -28,7 +30,7 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response,
-                                    FilterChain filterChain) throws ServletException, IOException {
+                                    FilterChain chain) throws ServletException, IOException {
 
         String token= request.getHeader(AUTH_HEADER);
 
@@ -49,6 +51,6 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
 
             }
         }
-        filterChain.doFilter(request, response);
+        chain.doFilter(request, response);
     }
 }

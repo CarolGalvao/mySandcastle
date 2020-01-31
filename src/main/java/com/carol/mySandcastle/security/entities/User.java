@@ -20,7 +20,6 @@ public class User implements Serializable {
     private Long id;
     @Column(name = "email", nullable = false)
     private String email;
-    @Enumerated
     @Column(name = "password", nullable = false)
     private String password;
     @Column(name = "profile", nullable = false)

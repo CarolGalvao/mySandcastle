@@ -25,7 +25,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private JwtAuthenticationEntryPoint unauthorizedHandler;
 
-    @Qualifier("jwtUserDetailsServiceImpl")
+   @Qualifier("jwtUserDetailsServiceImpl")
     @Autowired
     private UserDetailsService userDetailsService;
 
