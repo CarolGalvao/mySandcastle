@@ -3,7 +3,8 @@ package com.carol.mySandcastle.utils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class SenhaUtils {
-    public static String geraBCrypt(String password){
+
+    public static String createBCrypt(String password){
         if( password == null){
             return password;
         }
@@ -15,4 +16,5 @@ public class SenhaUtils {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.matches(password,passwordEncoded);
     }
+
 }

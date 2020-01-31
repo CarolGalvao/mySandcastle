@@ -4,9 +4,11 @@ import com.carol.mySandcastle.security.entities.User;
 import com.carol.mySandcastle.security.repositores.UserRepository;
 import com.carol.mySandcastle.security.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UserServiceImpl implements UserService {
 
     @Autowired

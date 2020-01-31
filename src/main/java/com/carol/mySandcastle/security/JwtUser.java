@@ -16,6 +16,7 @@ public class JwtUser implements UserDetails {
     private String password;
     private Collection<? extends GrantedAuthority> authorities;
 
+    //COmo coloquei o @AllArgsConstructor nao preciso fazer o construtor
 //    public JwtUser (Long id, String username, String password, Collection<? extends GrantedAuthority> authorities){
 //        this.id= id;
 //        this.username = username;
@@ -40,7 +41,7 @@ public class JwtUser implements UserDetails {
 
     @Override
     public boolean isAccountNonExpired() {
-        return false;
+        return true;
     }
 
     @Override

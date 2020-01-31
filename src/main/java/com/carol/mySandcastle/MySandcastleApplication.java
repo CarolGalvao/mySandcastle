@@ -1,16 +1,15 @@
 package com.carol.mySandcastle;
 
-import com.carol.mySandcastle.entities.Company;
 import com.carol.mySandcastle.repositories.CompanyRepository;
+import com.carol.mySandcastle.security.entities.User;
+import com.carol.mySandcastle.security.enums.ProfileEnum;
+import com.carol.mySandcastle.security.repositores.UserRepository;
 import com.carol.mySandcastle.utils.SenhaUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
-
-import java.util.List;
 
 
 @SpringBootApplication
@@ -19,6 +18,9 @@ public class MySandcastleApplication {
 	@Autowired
 	private CompanyRepository companyRepository;
 
+	@Autowired
+	private UserRepository userRepository;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MySandcastleApplication.class, args);
 	}
@@ -26,29 +28,47 @@ public class MySandcastleApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
-			Company company = new Company();
-			company.setCompanyName("Castle Builders");
-			company.setCnpj("00000000001");
 
-			this.companyRepository.save(company);
+			User user = new User();
+			user.setEmail("user@hotmail.com");
+			user.setProfile(ProfileEnum.ROLE_USER);
+			user.setPassword(SenhaUtils.createBCrypt("123456"));
+			this.userRepository.save(user);
 
-			List<Company> companyList = companyRepository.findAll();
-			companyList.forEach(System.out::println);
-
-			Company companyId = companyRepository.findFirstById(1L);
-			System.out.println("Empresa por ID:" + companyId);
-
-			companyId.setCompanyName("Carol's Castle");
-			this.companyRepository.save(companyId);
-
-			Company companyCnpj = companyRepository.findByCnpj("00000000001");
-			System.out.println("Empresa por CNPJ: " + companyCnpj);
-
-			this.companyRepository.deleteById(1L);
-			companyList = companyRepository.findAll();
-			System.out.println("Empresas: " + companyList);
+			User admin = new User();
+			admin.setEmail("adminr@hotmail.com");
+			admin.setProfile(ProfileEnum.ROLE_ADMIN);
+			admin.setPassword(SenhaUtils.createBCrypt("654321"));
+			this.userRepository.save(admin);
 		};
 	}
+//Usei para aulas antes da 31
+//	@Bean
+//	public CommandLineRunner commandLineRunner() {
+//		return args -> {
+//			Company company = new Company();
+//			company.setCompanyName("Castle Builders");
+//			company.setCnpj("00000000001");
+//
+//			this.companyRepository.save(company);
+//
+//			List<Company> companyList = companyRepository.findAll();
+//			companyList.forEach(System.out::println);
+//
+//			Company companyId = companyRepository.findFirstById(1L);
+//			System.out.println("Empresa por ID:" + companyId);
+//
+//			companyId.setCompanyName("Carol's Castle");
+//			this.companyRepository.save(companyId);
+//
+//			Company companyCnpj = companyRepository.findByCnpj("00000000001");
+//			System.out.println("Empresa por CNPJ: " + companyCnpj);
+//
+//			this.companyRepository.deleteById(1L);
+//			companyList = companyRepository.findAll();
+//			System.out.println("Empresas: " + companyList);
+//		};
+//	}
 
 // Aulas sobre properties e suas utilidades:
 //	@Value("${pagination.amount_per_page}")

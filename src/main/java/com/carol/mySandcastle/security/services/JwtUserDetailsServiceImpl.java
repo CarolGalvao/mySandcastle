@@ -13,6 +13,8 @@ import java.util.Optional;
 @Service
 public class JwtUserDetailsServiceImpl implements UserDetailsService {
 
+
+    @Autowired
     private UserService userService;
 
     @Override

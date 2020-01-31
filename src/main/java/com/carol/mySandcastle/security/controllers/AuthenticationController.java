@@ -6,6 +6,7 @@ import com.carol.mySandcastle.security.dto.TokenDto;
 import com.carol.mySandcastle.security.utils.JwtTokenUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -21,19 +22,22 @@ import javax.validation.Valid;
 import java.util.Optional;
 
 @RestController
-@RequestMapping("auth")
+@RequestMapping("/auth")
 @CrossOrigin( origins = "*")
 @Slf4j
 public class AuthenticationController {
 
     private static final String TOKEN_HEADER = "Authorization";
-    private static final String BEARER_PREFIX = "Bearer";
+    private static final String BEARER_PREFIX = "Bearer ";
 
+//faltou um @Autowired aqui... mas nao sei como colocar o qualifier dele
     private AuthenticationManager authenticationManager;
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
 
+    @Qualifier("jwtUserDetailsServiceImpl")
+    @Autowired
     private UserDetailsService userDetailsService;
 
     @PostMapping

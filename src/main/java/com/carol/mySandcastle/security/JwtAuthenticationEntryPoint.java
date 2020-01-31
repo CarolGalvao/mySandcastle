@@ -17,4 +17,6 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         httpServletResponse.sendError( 1,"Acesso negado. Você deve estar autenticado no sistema" +
                 "para acessar a URL solicitada.");
     }
+
+    //Excessão padrão que o spring pede
 }

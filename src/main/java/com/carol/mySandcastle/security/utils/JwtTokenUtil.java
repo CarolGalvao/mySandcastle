@@ -14,9 +14,9 @@ import java.util.Map;
 @Component
 public class JwtTokenUtil {
 
-    static final String CLAIM_KEY_USERNAME = "sub";
-    static final String CLAIM_KEY_ROLE = "role";
-    static final String CLAIM_KEY_CREATED = "created";
+    static final String CLAIM_KEY_USERNAME = "sub"; //nome do usuário
+    static final String CLAIM_KEY_ROLE = "role"; //perfil do usuário
+    static final String CLAIM_KEY_CREATED = "created"; //definição de quando ele foi cirado
 
     @Value("${jwt.secret}")
     private String secret;
@@ -70,6 +70,7 @@ public class JwtTokenUtil {
         return !tokenExpired(token);
     }
 
+    //aqui ele cria um token
     public String getToken (UserDetails userDetails){
         Map<String, Object> claims = new HashMap<>();
         claims.put(CLAIM_KEY_USERNAME, userDetails.getUsername());
@@ -80,6 +81,7 @@ public class JwtTokenUtil {
         return buildToken(claims);
     }
 
+    //sem o secret vc nao consegue ver os dados do token, por uma questão de segurança
     private Claims getClaimsFromToken(String token){
         Claims claims;
         try{
@@ -91,7 +93,7 @@ public class JwtTokenUtil {
         return claims;
     }
 
-    private Date builDateExpiration(){
+    private Date buildDateExpiration(){
         return new Date(System.currentTimeMillis() + expiration *10000);
     }
 
@@ -104,9 +106,10 @@ public class JwtTokenUtil {
     }
 
     private String buildToken(Map<String, Object> claims){
-        return Jwts.builder().setClaims(claims).setExpiration(builDateExpiration())
+        return Jwts.builder().setClaims(claims).setExpiration(buildDateExpiration())
                 .signWith(SignatureAlgorithm.HS512, secret).compact();
     }
+    // a cahve usando de novo aqui garente a integridade do token
 
 
 }
