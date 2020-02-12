@@ -1,18 +1,18 @@
 package com.carol.mySandcastle;
 
 import com.carol.mySandcastle.repositories.CompanyRepository;
-import com.carol.mySandcastle.security.entities.User;
-import com.carol.mySandcastle.security.enums.ProfileEnum;
 import com.carol.mySandcastle.security.repositores.UserRepository;
-import com.carol.mySandcastle.utils.SenhaUtils;
+import com.carol.mySandcastle.service.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
+@EnableCaching
 public class MySandcastleApplication {
 
 	@Autowired
@@ -21,6 +21,9 @@ public class MySandcastleApplication {
 	@Autowired
 	private UserRepository userRepository;
 
+	@Autowired
+	private CacheService cacheService;
+
 	public static void main(String[] args) {
 		SpringApplication.run(MySandcastleApplication.class, args);
 	}
@@ -28,20 +31,33 @@ public class MySandcastleApplication {
 	@Bean
 	public CommandLineRunner commandLineRunner() {
 		return args -> {
+			System.out.println("Executando serviço pela primeira vez: ");
+			System.out.println(this.cacheService.exampleCache());
 
-			User user = new User();
-			user.setEmail("user@hotmail.com");
-			user.setProfile(ProfileEnum.ROLE_USER);
-			user.setPassword(SenhaUtils.createBCrypt("123456"));
-			this.userRepository.save(user);
+			System.out.println("Executando o serviço pela segunda vez, deve obter dados do cache: ");
+			System.out.println(this.cacheService.exampleCache());
 
-			User admin = new User();
-			admin.setEmail("adminr@hotmail.com");
-			admin.setProfile(ProfileEnum.ROLE_ADMIN);
-			admin.setPassword(SenhaUtils.createBCrypt("654321"));
-			this.userRepository.save(admin);
 		};
 	}
+
+	//Usei para aulas 31-34
+//	@Bean
+//	public CommandLineRunner commandLineRunner() {
+//		return args -> {
+//
+//			User user = new User();
+//			user.setEmail("user@hotmail.com");
+//			user.setProfile(ProfileEnum.ROLE_USER);
+//			user.setPassword(SenhaUtils.createBCrypt("123456"));
+//			this.userRepository.save(user);
+//
+//			User admin = new User();
+//			admin.setEmail("adminr@hotmail.com");
+//			admin.setProfile(ProfileEnum.ROLE_ADMIN);
+//			admin.setPassword(SenhaUtils.createBCrypt("654321"));
+//			this.userRepository.save(admin);
+//		};
+//	}
 //Usei para aulas antes da 31
 //	@Bean
 //	public CommandLineRunner commandLineRunner() {
