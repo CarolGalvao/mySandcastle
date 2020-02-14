@@ -1,14 +1,11 @@
 package com.carol.mySandcastle;
 
 import com.carol.mySandcastle.repositories.CompanyRepository;
-import com.carol.mySandcastle.security.repositores.UserRepository;
 import com.carol.mySandcastle.service.CacheService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
-import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
@@ -18,8 +15,8 @@ public class MySandcastleApplication {
 	@Autowired
 	private CompanyRepository companyRepository;
 
-	@Autowired
-	private UserRepository userRepository;
+//	@Autowired
+//	private UserRepository userRepository;
 
 	@Autowired
 	private CacheService cacheService;
@@ -27,18 +24,18 @@ public class MySandcastleApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(MySandcastleApplication.class, args);
 	}
-
-	@Bean
-	public CommandLineRunner commandLineRunner() {
-		return args -> {
-			System.out.println("Executando serviço pela primeira vez: ");
-			System.out.println(this.cacheService.exampleCache());
-
-			System.out.println("Executando o serviço pela segunda vez, deve obter dados do cache: ");
-			System.out.println(this.cacheService.exampleCache());
-
-		};
-	}
+//usei para aula de cache
+//	@Bean
+//	public CommandLineRunner commandLineRunner() {
+//		return args -> {
+//			System.out.println("Executando serviço pela primeira vez: ");
+//			System.out.println(this.cacheService.exampleCache());
+//
+//			System.out.println("Executando o serviço pela segunda vez, deve obter dados do cache: ");
+//			System.out.println(this.cacheService.exampleCache());
+//
+//		};
+//	}
 
 	//Usei para aulas 31-34
 //	@Bean
